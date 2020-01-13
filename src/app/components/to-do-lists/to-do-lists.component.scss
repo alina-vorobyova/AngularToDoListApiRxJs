@@ -1,0 +1,15 @@
+li.todolist:hover {
+    cursor: pointer;
+}
+
+i.fa-trash  {
+    width: 5%;
+}
+
+i.fa-plus {
+    padding-left: 10%;
+}
+
+.fa-trash:hover, .fa-edit:hover, .fa-plus:hover {
+    cursor: pointer;
+}
