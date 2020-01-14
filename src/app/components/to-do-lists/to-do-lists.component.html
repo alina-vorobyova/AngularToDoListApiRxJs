@@ -1,5 +1,5 @@
 <div class="row mt-5">
-    <ng-container *ngFor="let toDoList of toDoLists">
+    <ng-container *ngFor="let toDoList of toDoListFacade.list$ | async">
         <div class="col-md-6 my-3">
             <div class="card" [id]="toDoList.id">
                 <div class="card-header font-weight-bold" [style.background-color]="toDoList.color">

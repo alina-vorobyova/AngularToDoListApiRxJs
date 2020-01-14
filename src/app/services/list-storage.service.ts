@@ -38,7 +38,7 @@ export class ListStorageService {
         listToReplace.color = list.color;
         listToReplace.title = list.title;
         listToReplace.toDoItems = list.toDoItems;
-        this.lists.next([...this.lists.getValue(), listToReplace]);
+        this.lists.next([...this.lists.getValue().filter(x => x.id != id), listToReplace]);
       }
     } catch (error) {
       throw new Error("List not found");

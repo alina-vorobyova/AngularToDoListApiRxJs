@@ -3,6 +3,7 @@ import { ToDoListService } from 'src/app/services/to-do-list.service';
 import { ToDoList } from 'src/app/models/to-do-list';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ListFacadeService } from 'src/app/services/list-facade.service';
 
 @Component({
   selector: 'app-add-to-do-list',
@@ -12,7 +13,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class AddToDoListComponent implements OnInit {
  
 
-  constructor(private toDoListService: ToDoListService,
+  constructor(private toDoListFacade: ListFacadeService,
     private router: Router,
     private activatedRoute: ActivatedRoute) { }
 
@@ -34,7 +35,7 @@ export class AddToDoListComponent implements OnInit {
     });
     
     if (this.Listid != 0) {
-        this.todolist = await this.toDoListService.getListById(this.Listid);
+        // this.todolist = await this.toDoListService.getListById(this.Listid);
 
         if (this.todolist != null) {
           this.title.setValue(this.todolist.title);
@@ -49,12 +50,13 @@ export class AddToDoListComponent implements OnInit {
       let todolist = this.toDoListForm.value;
       if (this.Listid != 0) {
           todolist.id = this.Listid;
-          await this.toDoListService.replaceToDoList(this.Listid, todolist);
+          // await this.toDoListService.replaceToDoList(this.Listid, todolist);
           this.router.navigate(['/toDoLists']);
       }
       else {
-        await this.toDoListService.createToDoList(todolist);
-        this.router.navigate(['/toDoLists']);
+        this.toDoListFacade.createList(todolist).subscribe(todolist => {
+          this.router.navigate(['/toDoLists']);
+        });
       }
 
       
