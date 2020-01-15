@@ -36,22 +36,28 @@ export class AddToDoListComponent implements OnInit {
     
     if (this.Listid != 0) {
         // this.todolist = await this.toDoListService.getListById(this.Listid);
-
-        if (this.todolist != null) {
-          this.title.setValue(this.todolist.title);
-          this.color.setValue(this.todolist.color);
-        }
+        this.toDoListFacade.getListById(this.Listid).subscribe(data => {
+          this.todolist = data;
+          if (this.todolist != null) {
+            this.title.setValue(this.todolist.title);
+            this.color.setValue(this.todolist.color);
+             }
+          }
+        );
+       
     }
 
   }
 
 
-  async onFormSubmit() {
+ onFormSubmit() {
       let todolist = this.toDoListForm.value;
       if (this.Listid != 0) {
           todolist.id = this.Listid;
           // await this.toDoListService.replaceToDoList(this.Listid, todolist);
-          this.router.navigate(['/toDoLists']);
+          this.toDoListFacade.replaceList(this.Listid, todolist).subscribe(todolist => {
+            this.router.navigate(['/toDoLists']);
+          });
       }
       else {
         this.toDoListFacade.createList(todolist).subscribe(todolist => {

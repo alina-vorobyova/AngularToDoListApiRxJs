@@ -37,4 +37,14 @@ export class ListFacadeService {
     return this.listApiService.deleteToDoList(id).pipe(
       tap(() => this.listStorageService.removeList(id)));
   }
+
+  replaceList(id: number, todolist: ToDoList) {
+    return this.listApiService.replaceToDoList(id, todolist).pipe(
+        tap(data => this.listStorageService.replaceList(data.id, data))
+    );
+  }
+
+  getListById(id: number) {
+      return this.listApiService.getListById(id);
+  }
 }
