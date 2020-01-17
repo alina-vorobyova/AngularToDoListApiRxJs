@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToDoItemService } from 'src/app/services/to-do-item.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToDoItem } from 'src/app/models/to-do-item';
+import { ListFacadeService } from 'src/app/services/list-facade.service';
 
 
 @Component({
@@ -14,6 +15,7 @@ export class AddToDoItemsComponent implements OnInit {
 
 
   constructor(private toDoItemService: ToDoItemService,
+    private facadeService: ListFacadeService,
     private router: Router,
     private activatedRoute: ActivatedRoute) { }
 
@@ -41,15 +43,17 @@ export class AddToDoItemsComponent implements OnInit {
       time: new FormControl(null, null)
     });
     if (this.itemid != 0) {
-      this.todoitem = await this.toDoItemService.getToDoItemById(this.itemid);
-
+      //this.todoitem = await this.toDoItemService.getToDoItemById(this.itemid);
+      this.facadeService.getToDoItemById(this.itemid).subscribe(data => {
+        this.todoitem = data;
       if (this.todoitem != null) {
         this.todoitem.id = this.itemid;
         this.title.setValue(this.todoitem.title);
         this.text.setValue(this.todoitem.text);
         this.deadline.setValue(formatDate(this.todoitem.deadline)),
-        this.time.setValue(formatTime(this.todoitem.deadline))
-      }
+          this.time.setValue(formatTime(this.todoitem.deadline))
+        }
+      });
     }
   }
 
@@ -65,13 +69,19 @@ export class AddToDoItemsComponent implements OnInit {
       item.deadline = datetime;
     }
     if (this.itemid != 0) {
-       item.id = this.itemid;
-       await this.toDoItemService.replaceToDoItem(this.itemid, item);
-       this.router.navigate(['/toDoLists']);
+      item.id = this.itemid;
+      //await this.toDoItemService.replaceToDoItem(this.itemid, item);
+      this.facadeService.replaceToDoItem(this.Listid, this.itemid, item).subscribe(todoitem =>
+        {
+          this.router.navigate(['/toDoLists']);
+        });
     }
     else {
-      await this.toDoItemService.createToDoItem(item);
-      this.router.navigate(['/toDoLists']);
+      //await this.toDoItemService.createToDoItem(item);
+      this.facadeService.createToDoItem(this.Listid,item).subscribe(todoitem =>
+          {
+            this.router.navigate(['/toDoLists']);
+          });
     }
 
   }

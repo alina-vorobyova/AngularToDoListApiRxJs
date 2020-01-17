@@ -20,7 +20,7 @@
                                 <p>
                                     <b>Deadline:</b> {{todoitem.deadline}}
                                 </p>
-                                <p class="text-danger" (click)="deleteTaskClick(todoitem.id)">Delete this task</p>
+                                <p class="text-danger" (click)="deleteTaskClick(toDoList.id,todoitem.id)">Delete this task</p>
                                 <a class="text-primary" [routerLink]="['/editToDoItem', toDoList.id,  todoitem.id]">Edit this task</a>
                             </div>
                           </div>

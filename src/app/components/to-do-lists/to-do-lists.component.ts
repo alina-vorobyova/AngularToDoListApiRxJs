@@ -20,9 +20,8 @@ export class ToDoListsComponent implements OnInit {
    
   }
 
-  async deleteTaskClick(id: number) {
-    // await this.toDoItemService.deleteToDoItem(id);
-    // await this.loadLists();
+  async deleteTaskClick(listId: number, itemId: number) {
+    this.toDoListFacade.removeToDoItem(listId, itemId).subscribe();
   }
 
   async DeleteListClick(id: number) {
