@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ToDoItemService } from 'src/app/services/to-do-item.service';
+import { ToDoItemService } from 'src/app/core/services/to-do-item.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ToDoItem } from 'src/app/models/to-do-item';
-import { ListFacadeService } from 'src/app/services/list-facade.service';
+import { ToDoItem } from 'src/app/core/models/to-do-item';
+import { ListFacadeService } from 'src/app/core/services/list-facade.service';
 
 
 @Component({

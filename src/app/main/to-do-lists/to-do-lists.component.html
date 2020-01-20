@@ -3,10 +3,12 @@
         <div class="col-md-6 my-3">
             <div class="card" [id]="toDoList.id">
                 <div class="card-header font-weight-bold" [style.background-color]="toDoList.color">
-                    <i class="fas fa-trash text-danger" (click)="DeleteListClick(toDoList.id)"></i>
-                    <i class="fas fa-edit text-primary" [routerLink]="['/editToDoList', toDoList.id]"></i>
-                    {{toDoList.title}}
-                    <i class="fas fa-plus float-right" [routerLink]="['/addToDoItems', toDoList.id]"></i>
+                    <i class="fas fa-trash mx-2" (click)="DeleteListClick(toDoList.id)" [style.color]="lightOrDark(toDoList.color)"></i>
+                    <i class="fas fa-edit" [routerLink]="['/editor/editToDoList', toDoList.id]" [style.color]="lightOrDark(toDoList.color)"></i>
+                    <span [style.color]="lightOrDark(toDoList.color)">
+                        {{toDoList.title}}
+                    </span>
+                    <i class="fas fa-plus float-right" [routerLink]="['/editor/addToDoItems', toDoList.id]" [style.color]="lightOrDark(toDoList.color)"></i>
                 </div>
                 <ul class="list-group list-group-flush" *ngFor="let todoitem of toDoList.toDoItems">
                     <li class="list-group-item todolist" data-toggle="collapse" data-toggle="collapse" [attr.data-target]="'#' + 'a' +  todoitem.id" aria-expanded="false"  [attr.aria-controls]="'a' + todoitem.id">                        {{todoitem.title}} 
@@ -21,7 +23,7 @@
                                     <b>Deadline:</b> {{todoitem.deadline}}
                                 </p>
                                 <p class="text-danger" (click)="deleteTaskClick(toDoList.id,todoitem.id)">Delete this task</p>
-                                <a class="text-primary" [routerLink]="['/editToDoItem', toDoList.id,  todoitem.id]">Edit this task</a>
+                                <a class="text-primary" [routerLink]="['/editor/editToDoItem', toDoList.id,  todoitem.id]">Edit this task</a>
                             </div>
                           </div>
                     </li>

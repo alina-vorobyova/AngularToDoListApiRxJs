@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ToDoItemService } from 'src/app/services/to-do-item.service';
+import { ToDoItemService } from 'src/app/core/services/to-do-item.service';
 
 @Component({
   selector: 'app-to-do-items',

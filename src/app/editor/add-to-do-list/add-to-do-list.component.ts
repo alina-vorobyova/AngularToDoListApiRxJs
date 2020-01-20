@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ToDoListService } from 'src/app/services/to-do-list.service';
-import { ToDoList } from 'src/app/models/to-do-list';
+import { ToDoListService } from 'src/app/core/services/to-do-list.service';
+import { ToDoList } from 'src/app/core/models/to-do-list';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ListFacadeService } from 'src/app/services/list-facade.service';
+import { ListFacadeService } from 'src/app/core/services/list-facade.service';
 
 @Component({
   selector: 'app-add-to-do-list',
@@ -31,7 +31,7 @@ export class AddToDoListComponent implements OnInit {
     
     this.toDoListForm = new FormGroup({
       title: new FormControl(null, [Validators.required, Validators.maxLength(100)]),
-      color: new FormControl(null, [Validators.pattern("^#[0-9,a-f,A-F]{6}$")])
+      color: new FormControl('#000000', [Validators.pattern("^#[0-9,a-f,A-F]{6}$")])
     });
     
     if (this.Listid != 0) {
@@ -55,7 +55,7 @@ export class AddToDoListComponent implements OnInit {
       if (this.Listid != 0) {
           todolist.id = this.Listid;
           // await this.toDoListService.replaceToDoList(this.Listid, todolist);
-          this.toDoListFacade.replaceList(this.Listid, todolist).subscribe(todolist => {
+          this.toDoListFacade.replaceList(this.Listid, todolist).subscribe(() => {
             this.router.navigate(['/toDoLists']);
           });
       }
